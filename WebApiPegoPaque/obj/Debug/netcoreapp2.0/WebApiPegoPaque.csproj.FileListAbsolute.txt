@@ -1,0 +1,11 @@
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\bin\Debug\netcoreapp2.0\WebApiPegoPaque.deps.json
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\bin\Debug\netcoreapp2.0\WebApiPegoPaque.runtimeconfig.json
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\bin\Debug\netcoreapp2.0\WebApiPegoPaque.runtimeconfig.dev.json
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\bin\Debug\netcoreapp2.0\WebApiPegoPaque.dll
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\bin\Debug\netcoreapp2.0\WebApiPegoPaque.pdb
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.csprojAssemblyReference.cache
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.csproj.CoreCompileInputs.cache
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.AssemblyInfoInputs.cache
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.AssemblyInfo.cs
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.dll
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque\obj\Debug\netcoreapp2.0\WebApiPegoPaque.pdb
