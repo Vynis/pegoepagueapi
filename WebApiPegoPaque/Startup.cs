@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace WebApiPegoPaque
 {
@@ -24,6 +25,12 @@ namespace WebApiPegoPaque
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "Core Api", Description = "Swagger Core Api" });
+
+                var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"WebApiPegoPaque.xml";
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +42,10 @@ namespace WebApiPegoPaque
             }
 
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api");
+            });
         }
     }
 }
