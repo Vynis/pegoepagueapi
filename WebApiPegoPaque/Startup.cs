@@ -28,8 +28,8 @@ namespace WebApiPegoPaque
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "Core Api", Description = "Swagger Core Api" });
 
-                var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"WebApiPegoPaque.xml";
-                c.IncludeXmlComments(xmlPath);
+                //var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"WebApiPegoPaque.xml";
+                //c.IncludeXmlComments(xmlPath);
             });
         }
 
