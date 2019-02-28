@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApiPegoPaque.Models;
 using WebApiPegoPaque.Util;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApiPegoPaque.Controllers
 {
@@ -12,11 +13,20 @@ namespace WebApiPegoPaque.Controllers
     {
 
         private DataContext db = new DataContext();
+        Autenticacao AutenticaoServico;
+
+        public ValuesController(IHttpContextAccessor context)
+        {
+            AutenticaoServico = new Autenticacao(context);
+        }
 
         // GET api/values
         [HttpGet]
         public List<Product> Get()
         {
+
+            AutenticaoServico.Autenticar();
+
             //var lista = db.Products
             return db.Products.ToList();
         }
