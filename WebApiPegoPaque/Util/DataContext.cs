@@ -18,5 +18,6 @@ namespace WebApiPegoPaque.Util
         }
 
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Cliente> Clientes { get; set; }
     }
 }
