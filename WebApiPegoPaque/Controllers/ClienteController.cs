@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApiPegoPaque.DAL;
 using WebApiPegoPaque.Models;
 using WebApiPegoPaque.Util;
@@ -9,10 +11,12 @@ using WebApiPegoPaque.Util;
 namespace WebApiPegoPaque.Controllers
 {
     [Route("api/cliente")]
+    [Authorize()]
     public class ClienteController : Controller
     {
 
         private ClienteDAL dal = new ClienteDAL();
+        private ReturnAllService retorno = new ReturnAllService();
         Autenticacao AutenticaoServico;
 
         public ClienteController(IHttpContextAccessor context)
@@ -26,8 +30,6 @@ namespace WebApiPegoPaque.Controllers
         [Route("registrarcliente")]
         public ReturnAllService RegistrarCliente([FromBody]Cliente dados)
         {
-            ReturnAllService retorno = new ReturnAllService();
-
             try
             {
                 if (!ModelState.IsValid)
@@ -53,9 +55,17 @@ namespace WebApiPegoPaque.Controllers
 
         [HttpGet]
         [Route("listagem")]
-        public List<Cliente> Listagem()
+        public async Task<List<Cliente>> Listagem()
         {
-            return dal.Listagem();
+            try
+            {
+                return await dal.Listagem();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpGet]
@@ -83,16 +93,16 @@ namespace WebApiPegoPaque.Controllers
             if (!dal.AtualizarCliente(id, cliente))
                 return NotFound();
 
+            retorno.ErroMessage = string.Empty;
+            retorno.Result = true;
+
             return Ok(cliente);
-         
         }
 
         [HttpDelete]
         [Route("deletar-cliente/{id}")]
         public IActionResult DeletarCliente(int id)
         {
-            ReturnAllService retorno = new ReturnAllService();
-
             if (!dal.DeletarCliente(id))
                 return BadRequest("Erro ao deletar cliente");
 

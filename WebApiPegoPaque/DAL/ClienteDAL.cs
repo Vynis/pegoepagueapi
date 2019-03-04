@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiPegoPaque.Models;
 using WebApiPegoPaque.Util;
 
@@ -17,9 +18,13 @@ namespace WebApiPegoPaque.DAL
             db.SaveChanges();
         }
 
-        public List<Cliente> Listagem()
+        public async Task<List<Cliente>> Listagem()
         {
-            return db.Clientes.ToList();
+            return await Task.Run(() =>
+           {
+               return db.Clientes.ToList();
+           });
+
         }
 
         public Cliente RetornaCliente(int id)
@@ -27,7 +32,7 @@ namespace WebApiPegoPaque.DAL
             return db.Clientes.Find(id);
         }
 
-        public bool AtualizarCliente(int id, Cliente cliente )
+        public bool AtualizarCliente(int id, Cliente cliente)
         {
             if (db.Clientes.Count(c => c.Id == id) == 0)
                 return false;
@@ -55,6 +60,5 @@ namespace WebApiPegoPaque.DAL
             return true;
 
         }
-
     }
 }
