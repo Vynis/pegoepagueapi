@@ -39,8 +39,8 @@ namespace WebApiPegoPaque
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "macoratti.net",
-                    ValidAudience = "macoratti.net",
+                    ValidIssuer = "pegopague",
+                    ValidAudience = "pegopague",
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
                 };

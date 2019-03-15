@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using WebApiPegoPaque.Models;
+using WebApiPegoPaque.Util;
 
 namespace WebApiPegoPaque.Controllers
 {
@@ -17,6 +18,8 @@ namespace WebApiPegoPaque.Controllers
     public class TokenController : Controller
     {
         private readonly IConfiguration _configuration;
+        private DataContext db = new DataContext();
+        private ReturnToken retorno = new ReturnToken();
 
         public TokenController(IConfiguration configuration)
         {
@@ -27,12 +30,25 @@ namespace WebApiPegoPaque.Controllers
         [HttpPost]
         public IActionResult RequestToken([FromBody] Usuario request)
         {
-            if (request.Nome == "Mac" && request.Senha == "numsey")
+            try
             {
+
+                var usuario = db.DbUsuarios.Where(c => c.Email.Equals(request.Email) && c.Senha.Equals(Encryptor.MD5Hash(request.Senha)));
+
+                if (usuario.ToList().Count == 0)
+                    return BadRequest("Credenciais invalida");
+
+                var usuarioRetorno = new Usuario();
+
+                foreach (var item in usuario.ToList())
+                {
+                    usuarioRetorno = item;
+                }
+
                 var claims = new[]
                 {
-                     new Claim(ClaimTypes.Name, request.Nome)
-                };
+                     new Claim(ClaimTypes.Email, request.Email)
+                    };
 
                 //recebe uma instancia da classe SymmetricSecurityKey 
                 //armazenando a chave de criptografia usada na criação do token
@@ -45,18 +61,26 @@ namespace WebApiPegoPaque.Controllers
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
-                     issuer: "macoratti.net",
-                     audience: "macoratti.net",
+                     issuer: "pegopague",
+                     audience: "pegopague",
                      claims: claims,
                      expires: DateTime.Now.AddMinutes(30),
                      signingCredentials: creds);
 
+
                 return Ok(new
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    user = usuarioRetorno
                 });
+
+
             }
-            return BadRequest("Credenciais inválidas...");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
     }
 }

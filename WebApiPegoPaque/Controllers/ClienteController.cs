@@ -17,13 +17,6 @@ namespace WebApiPegoPaque.Controllers
 
         private ClienteDAL dal = new ClienteDAL();
         private ReturnAllService retorno = new ReturnAllService();
-        Autenticacao AutenticaoServico;
-
-        public ClienteController(IHttpContextAccessor context)
-        {
-            AutenticaoServico = new Autenticacao(context);
-        }
-
 
         // POST api/values
         [HttpPost]
@@ -59,7 +52,11 @@ namespace WebApiPegoPaque.Controllers
         {
             try
             {
-                return await dal.Listagem();
+                var cliente = new List<Cliente>();
+
+                cliente = await dal.Listagem();
+
+                return cliente;
             }
             catch (Exception)
             {
