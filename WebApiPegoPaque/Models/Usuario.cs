@@ -8,6 +8,7 @@ namespace WebApiPegoPaque.Models
     public class Usuario
     {
         [Column("usu_id")]
+        [Key]
         public int Id { get; set; }
         [Column("usu_nome")]
         [Required(ErrorMessage ="Informe o {0}")]
@@ -23,5 +24,9 @@ namespace WebApiPegoPaque.Models
         public DateTime DtCadastro { get; set; }
         [Column("usu_status")]
         public string Status { get; set; }
+        [Column("usu_fone")]
+        [MaxLength(12)]
+        [Required(ErrorMessage = "Informe o {0}")]
+        public string Telefone { get; set; }
     }
 }

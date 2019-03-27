@@ -36,7 +36,7 @@ namespace WebApiPegoPaque.Controllers
                 var usuario = db.DbUsuarios.Where(c => c.Email.Equals(request.Email) && c.Senha.Equals(Encryptor.MD5Hash(request.Senha)));
 
                 if (usuario.ToList().Count == 0)
-                    return BadRequest("Credenciais invalida");
+                    return BadRequest("E-mail/Senha esta invalido!");
 
                 var usuarioRetorno = new Usuario();
 

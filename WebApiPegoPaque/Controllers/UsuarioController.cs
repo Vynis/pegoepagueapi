@@ -33,9 +33,6 @@ namespace WebApiPegoPaque.Controllers
                     return BadRequest(erro);
                 }
                     
-
-                
-
                 //Criptografa a senha
                 usuario.Senha = Encryptor.MD5Hash(usuario.Senha);
 
