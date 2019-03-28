@@ -23,5 +23,10 @@ namespace WebApiPegoPaque.Util
         public virtual DbSet<Produto> DbProtudos { get; set; }
         public virtual DbSet<Marca> DbMarcas { get; set; }
         public virtual DbSet<CategoriaMarca> DbCategoriaMarca { get; set; }
+        public virtual DbSet<TipoVolume> DbTipoVolumes { get; set; }
+        public virtual DbSet<TipoVolumesProduto> DbTipoVolumesProdutos { get; set; }
+        public virtual DbSet<Estabelecimento> DbEstabelecimentos { get; set; }
+        public virtual DbSet<ListaModelo> DbListasModelo { get; set; }
+        public virtual DbSet<ProdutosLista> DbProdutosLista { get; set; }
     }
 }

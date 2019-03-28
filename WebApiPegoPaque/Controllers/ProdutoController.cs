@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApiPegoPaque.Models;
 using WebApiPegoPaque.Util;
-using System.Linq;
 
 namespace WebApiPegoPaque.Controllers
 {
@@ -24,7 +22,7 @@ namespace WebApiPegoPaque.Controllers
             {
                 var produtos = new List<Produto>();
 
-                produtos = db.DbProtudos.ToList().OrderBy(a => a.Nome).ToList();
+                produtos = db.DbProtudos.ToList().Where(a => a.Status.Equals('A')).OrderBy(a => a.Nome).ToList();
 
                 return Ok(produtos);
             }
@@ -35,7 +33,7 @@ namespace WebApiPegoPaque.Controllers
         }
 
         [HttpGet]
-        [Route("buscar-produtos/{id}")]
+        [Route("selecionar-produto/{id}")]
         public IActionResult BuscaProdutoSelecionado(int id)
         {
             try
@@ -48,22 +46,29 @@ namespace WebApiPegoPaque.Controllers
                 {
                     //INNER JOIN COM MARCAS
                     var marcas = from m in contexto.DbMarcas
-                                    join cm in contexto.DbCategoriaMarca on m.Id equals cm.MarId
-                                    where cm.ProId == id
-                                    select new
-                                    {
-                                        NomeMarca = m.Nome
-                                    };
+                                 join cm in contexto.DbCategoriaMarca on m.Id equals cm.MarId
+                                 where cm.ProId == id
+                                 select new
+                                 {
+                                     NomeMarca = m.Nome
+                                 };
 
                     //INNER JOIN COM VOLUMES
+                    var tipoVolumes = from t in contexto.DbTipoVolumes
+                                      join tvp in contexto.DbTipoVolumesProdutos on t.Id equals tvp.TivId
+                                      where tvp.ProId == id
+                                      select new
+                                      {
+                                          NomeVolume = t.Nome
+                                      };
 
-                
 
                     return Ok(
                       new
                       {
                           produto,
-                          marcas = marcas.ToList()
+                          marcas = marcas.ToList(),
+                          volumes = tipoVolumes.ToList()
                       }
                     );
                 }
