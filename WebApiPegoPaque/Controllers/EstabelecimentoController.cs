@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using WebApiPegoPaque.Models;
@@ -6,6 +7,8 @@ using WebApiPegoPaque.Util;
 
 namespace WebApiPegoPaque.Controllers
 {
+
+    [Authorize()]
     [Route("api/estabelecimento")]
     public class EstabelecimentoController : Controller
     {

@@ -30,5 +30,7 @@ namespace WebApiPegoPaque.Models
         public int MarId { get; set; }
         [Column("prl_mar_nome")]
         public string MarNome { get; set; }
+        [Column("prl_valor_maximo")]
+        public double ValorMaximo { get; set; }
     }
 }
