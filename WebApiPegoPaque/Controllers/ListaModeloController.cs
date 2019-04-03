@@ -46,13 +46,30 @@ namespace WebApiPegoPaque.Controllers
                 var listaModeloExistente = db.DbListasModelo.ToList().FindAll(a => a.Status.Equals("A") && a.UsuId.Equals(id));
 
                 if (listaModeloExistente.Count() > 0)
-                    return Ok(listaModeloExistente);
+                    return Ok(new { listaModelo = listaModeloExistente, count = listaModeloExistente.ToList().Count });
+                else
+                    return Ok(new { listaModelo = "", count = listaModeloExistente.ToList().Count });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("gravar-lista-modelo-usuario")]
+        public IActionResult GravaListaModelo(int idUsuario)
+        {
+            try
+            {
 
                 var listaModelo = new ListaModelo
                 {
-                    Nome = $"lista_{id}_{DateTime.Now.ToString("ddMMyyyyhhmmss")}",
+                    Nome = $"lista_{idUsuario}_{DateTime.Now.ToString("ddMMyyyyhhmmss")}",
                     DtCadastro = DateTime.Now,
-                    UsuId = id,
+                    UsuId = idUsuario,
                     Status = "A"
                 };
 
@@ -69,9 +86,11 @@ namespace WebApiPegoPaque.Controllers
             }
         }
 
+
+
         [HttpPost]
-        [Route("gravar-lista-modelo-usuario")]
-        public IActionResult GravaListaModeloUsuario([FromBody]ProdutosLista produtosLista)
+        [Route("gravar-produtos-lista-modelo-usuario")]
+        public IActionResult GravaProdutosListaModeloUsuario([FromBody]ProdutosLista produtosLista)
         {
             try
             {
@@ -113,6 +132,23 @@ namespace WebApiPegoPaque.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("busca-qtd-produtos-lista-selecionado/{idLista}")]
+        public IActionResult BuscaQtdProdutosListaSelecionado(int idLista)
+        {
+            try
+            {
+                var produtosLista = db.DbProdutosLista.ToList().Where(a => a.LimId.Equals(idLista));
+
+                return Ok(new { count = produtosLista.ToList().Count });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

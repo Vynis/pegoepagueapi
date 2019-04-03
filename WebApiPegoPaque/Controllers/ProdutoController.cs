@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApiPegoPaque.Models;
 using WebApiPegoPaque.Util;
 
 namespace WebApiPegoPaque.Controllers
 {
+    [Authorize()]
     [Route("api/produto")]
     public class ProdutoController : Controller
     {
@@ -22,7 +24,7 @@ namespace WebApiPegoPaque.Controllers
             {
                 var produtos = new List<Produto>();
 
-                produtos = db.DbProtudos.ToList().Where(a => a.Status.Equals('A')).OrderBy(a => a.Nome).ToList();
+                produtos = db.DbProdutos.ToList().Where(a => a.Status.Equals("A")).OrderBy(b => b.Nome).ToList();
 
                 return Ok(produtos);
             }
@@ -40,7 +42,7 @@ namespace WebApiPegoPaque.Controllers
             {
                 var produto = new Produto();
 
-                produto = db.DbProtudos.Find(id);
+                produto = db.DbProdutos.Find(id);
 
                 using (var contexto = new DataContext())
                 {
