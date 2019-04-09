@@ -32,7 +32,7 @@ namespace WebApiPegoPaque.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("seleciona-lista-modelo")]
         public IActionResult SelecionaListaModeloUsuario(int id)
         {
