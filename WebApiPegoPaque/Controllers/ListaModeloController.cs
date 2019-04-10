@@ -43,7 +43,7 @@ namespace WebApiPegoPaque.Controllers
                 if (!validaUsuario)
                     return BadRequest("Usuario nao encontrado");
 
-                var listaModeloExistente = db.DbListasModelo.ToList().FindAll(a => a.Status.Equals("A") && a.UsuId.Equals(id));
+                var listaModeloExistente = db.DbListasModelo.ToList().FindAll(a => a.Status.Equals("A") && a.UsuId.Equals(id)); 
 
                 if (listaModeloExistente.Count() > 0)
                     return Ok(new { listaModelo = listaModeloExistente, count = listaModeloExistente.ToList().Count });
@@ -118,7 +118,7 @@ namespace WebApiPegoPaque.Controllers
         }
 
         [HttpGet]
-        [Route("busca-produtos-lista-selecionado/{idLista}")]
+        [Route("busca-produtos-lista-selecionado")]
         public IActionResult BuscaProdutosListaSelecionado(int idLista)
         {
             try
@@ -141,7 +141,7 @@ namespace WebApiPegoPaque.Controllers
             {
                 var produtosLista = db.DbProdutosLista.ToList().Where(a => a.LimId.Equals(idLista));
 
-                return Ok(new { count = produtosLista.ToList().Count });
+                return Ok(new { count = produtosLista != null ? produtosLista.ToList().Count : 0 });
             }
             catch (Exception ex)
             {
@@ -149,6 +149,35 @@ namespace WebApiPegoPaque.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("excluir-lista-andamento")]
+        public IActionResult ExcluiListaAndamento(int idLista)
+        {
+            try
+            {
+                var listaEmAndamento = db.DbListasModelo.Find(idLista);
+
+                if (listaEmAndamento == null)
+                    return BadRequest("Nenhuma lista em andamento selecionada");
+
+                if (!listaEmAndamento.Status.Equals("A"))
+                    return BadRequest("A lista não esta em andamento");
+
+                listaEmAndamento.Status = "F";
+                db.Entry(listaEmAndamento).State = EntityState.Modified;
+                db.SaveChanges();
+
+                var listaNova = GravaListaModelo(listaEmAndamento.UsuId);
+
+                return Ok(listaNova);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
 
 
     }
