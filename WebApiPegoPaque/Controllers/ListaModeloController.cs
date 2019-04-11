@@ -64,6 +64,8 @@ namespace WebApiPegoPaque.Controllers
         {
             try
             {
+                if (idUsuario <= 0)
+                    return BadRequest("Informe id do usuario valido");
 
                 var listaModelo = new ListaModelo
                 {
