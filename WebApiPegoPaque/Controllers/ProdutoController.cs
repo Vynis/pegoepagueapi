@@ -52,6 +52,7 @@ namespace WebApiPegoPaque.Controllers
                                  where cm.ProId == id
                                  select new
                                  {
+                                     id = m.Id,
                                      NomeMarca = m.Nome
                                  };
 
@@ -61,6 +62,7 @@ namespace WebApiPegoPaque.Controllers
                                       where tvp.ProId == id
                                       select new
                                       {
+                                          id = t.Id,
                                           NomeVolume = t.Nome
                                       };
 

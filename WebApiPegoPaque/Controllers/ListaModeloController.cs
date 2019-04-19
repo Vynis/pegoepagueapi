@@ -104,6 +104,14 @@ namespace WebApiPegoPaque.Controllers
                     return BadRequest(erro);
                 }
 
+                //Copia do nome da marca
+                var marca = db.DbMarcas.Find(produtosLista.MarId);
+                produtosLista.MarNome = marca.Nome;
+
+                //Copia do nome do tipo de volume
+                var volume = db.DbTipoVolumes.Find(produtosLista.TivId);
+                produtosLista.Volume = volume.Nome;
+
                 if (produtosLista.Id != 0)
                     db.Entry(produtosLista).State = EntityState.Modified;
                 else
@@ -111,7 +119,7 @@ namespace WebApiPegoPaque.Controllers
 
                 db.SaveChanges();
 
-                return Ok("Cadastro realizado com sucesso!");
+                return Ok(produtosLista);
             }
             catch (Exception ex)
             {

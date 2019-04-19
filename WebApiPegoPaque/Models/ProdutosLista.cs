@@ -17,7 +17,7 @@ namespace WebApiPegoPaque.Models
         [Column("prl_obs")]
         public string Obs { get; set; }
         [Column("prl_qtd")]
-        public double Qtd { get; set; }
+        public decimal Qtd { get; set; }
         [Column("prl_volume")]
         public string Volume { get; set; }
         [Column("prl_tiv_id")]
@@ -31,6 +31,6 @@ namespace WebApiPegoPaque.Models
         [Column("prl_mar_nome")]
         public string MarNome { get; set; }
         [Column("prl_valor_maximo")]
-        public double ValorMaximo { get; set; }
+        public decimal ValorMaximo { get; set; }
     }
 }
