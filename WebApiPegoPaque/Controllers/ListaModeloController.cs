@@ -189,6 +189,32 @@ namespace WebApiPegoPaque.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("excluir-produto-lista")]
+        public IActionResult ExcluirProdutoLista(int IdProdLista)
+        {
+            try
+            {
+
+                var produtoLista = db.DbProdutosLista.Find(IdProdLista);
+
+                if (produtoLista == null)
+                    return BadRequest("Produto não encontrado");
+
+                db.DbProdutosLista.Remove(produtoLista);
+                db.SaveChanges();
+
+                return Ok(produtoLista);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+
+            }
+        }
+
 
     }
 }
