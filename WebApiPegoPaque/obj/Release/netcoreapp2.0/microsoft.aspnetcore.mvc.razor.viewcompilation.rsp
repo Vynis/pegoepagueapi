@@ -1,0 +1,5 @@
+D:\www\pegoepague.com.br\web\api\WebApiPegoPaque
+--output-path=obj\Release\netcoreapp2.0\
+--application-name=WebApiPegoPaque
+--content-root=D:\www\pegoepague.com.br\web\api\WebApiPegoPaque
+--file=
